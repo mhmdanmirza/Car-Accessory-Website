@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AutoGear PK — Premium Car Accessories</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --red:       #E8190A;
+      --red-dark:  #B01005;
+      --red-glow:  rgba(232, 25, 10, 0.15);
+      --black:     #0D0D0D;
+      --black-2:   #161616;
+      --black-3:   #1F1F1F;
+      --black-4:   #2A2A2A;
+      --white:     #FFFFFF;
+      --white-60:  rgba(255,255,255,0.6);
+      --white-20:  rgba(255,255,255,0.12);
+      --white-10:  rgba(255,255,255,0.06);
+      --border:    rgba(255,255,255,0.1);
+      --font-display: 'Barlow Condensed', sans-serif;
+      --font-body:    'Barlow', sans-serif;
+      --transition:   0.22s cubic-bezier(.34,1.56,.64,1);
+      --ease:         0.18s ease;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    /* REVEAL ANIMATIONS BASE CLASSES */
+    .reveal-item {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    .reveal-item.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--black);
+      color: var(--white);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+    img { display: block; max-width: 100%; }
+    button { cursor: pointer; font-family: var(--font-body); }
+
+    /* ANNOUNCEMENT BAR */
+    .announce-bar {
+      background: var(--red);
+      text-align: center;
+      padding: 8px 16px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    /* NAV */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+      height: 68px;
+      background: var(--black);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-logo {
+      font-family: var(--font-display);
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+    .nav-logo span { color: var(--red); }
+
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .nav-links a {
+      color: var(--white-60);
+      transition: color var(--ease);
+      position: relative;
+      padding-bottom: 2px;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -2px; left: 0;
+      width: 0; height: 2px;
+      background: var(--red);
+      transition: width var(--ease);
+    }
+    .nav-links a:hover { color: var(--white); }
+    .nav-links a:hover::after { width: 100%; }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .nav-actions a {
+      color: var(--white-60);
+      font-size: 20px;
+      transition: color var(--ease), transform var(--transition);
+      display: flex;
+    }
+    .nav-actions a:hover { color: var(--white); transform: scale(1.15); }
+
+    .nav-cart { position: relative; }
+    .cart-badge {
+      position: absolute;
+      top: -6px; right: -6px;
+      width: 16px; height: 16px;
+      background: var(--red);
+      border-radius: 50%;
+      font-size: 9px;
+      font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    /* HERO */
+    .hero {
+      min-height: 88vh;
+      display: flex;
+      align-items: center;
+      padding: 80px 48px;
+      position: relative;
+      overflow: hidden;
+      
+      /* THE FIX: Dark gradient overlay fading from left to right, plus the background image */
+      background: 
+        linear-gradient(to right, rgba(13, 13, 13, 0.95) 0%, rgba(13, 13, 13, 0.3) 100%),
+        url('images/sedan.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+   
+
+    .hero-bg-accent {
+      position: absolute;
+      top: -120px; right: -80px;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(232,25,10,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 620px;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 20px;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      display: block;
+      width: 28px; height: 2px;
+      background: var(--red);
+    }
+
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(64px, 8vw, 100px);
+      font-weight: 700;
+      line-height: 0.95;
+      letter-spacing: -0.01em;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+    .hero h1 em {
+      font-style: normal;
+      color: var(--red);
+      display: block;
+    }
+
+    .hero-sub {
+      font-size: 16px;
+      color: var(--white-60);
+      max-width: 440px;
+      line-height: 1.7;
+      margin-bottom: 40px;
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--red);
+      color: var(--white);
+      border: none;
+      border-radius: 6px;
+      padding: 14px 28px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: background var(--ease), transform var(--transition);
+    }
+    .btn-primary:hover { background: var(--red-dark); transform: translateY(-2px); }
+    .btn-primary:active { transform: scale(0.97); }
+
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      color: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 14px 28px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: border-color var(--ease), background var(--ease), transform var(--transition);
+    }
+    .btn-ghost:hover { border-color: var(--white-60); background: var(--white-10); transform: translateY(-2px); }
+
+    .hero-stats {
+      display: flex;
+      gap: 48px;
+      margin-top: 64px;
+      padding-top: 40px;
+      border-top: 1px solid var(--border);
+    }
+    .stat-num {
+      font-family: var(--font-display);
+      font-size: 36px;
+      font-weight: 700;
+      line-height: 1;
+    }
+    .stat-num span { color: var(--red); }
+    .stat-label {
+      font-size: 12px;
+      color: var(--white-60);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-top: 4px;
+    }
+
+    /* SECTIONS */
+    section { padding: 80px 48px; }
+    .section-header { margin-bottom: 48px; }
+    .section-eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 10px;
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(36px, 5vw, 52px);
+      font-weight: 700;
+      text-transform: uppercase;
+      line-height: 1;
+    }
+
+    /* CATEGORIES */
+    .categories { background: var(--black-2); }
+
+    .cat-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .cat-tile {
+      background: var(--black-3);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 32px 20px 28px;
+      text-align: center;
+      cursor: pointer;
+      transition: transform var(--transition), border-color var(--ease), background var(--ease);
+      position: relative;
+      overflow: hidden;
+    }
+    .cat-tile::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--red-glow);
+      opacity: 0;
+      transition: opacity var(--ease);
+      border-radius: 12px;
+    }
+    .cat-tile:hover { transform: translateY(-8px) scale(1.02); border-color: var(--red); }
+    .cat-tile:hover::before { opacity: 1; }
+
+    .cat-icon-wrap {
+      width: 64px; height: 64px;
+      background: var(--black-4);
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 16px;
+      transition: transform var(--transition), background var(--ease), border-color var(--ease);
+    }
+    .cat-tile:hover .cat-icon-wrap {
+      transform: scale(1.2) rotate(-8deg);
+      background: var(--red);
+      border-color: var(--red);
+    }
+    .cat-icon-wrap i {
+      font-size: 28px;
+      color: var(--white-60);
+      transition: color var(--ease);
+    }
+    .cat-tile:hover .cat-icon-wrap i { color: var(--white); }
+
+    .cat-name {
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+      position: relative;
+    }
+    .cat-count { font-size: 12px; color: var(--white-60); position: relative; }
+
+    .cat-arrow {
+      position: absolute;
+      bottom: 14px; right: 16px;
+      font-size: 16px;
+      color: var(--red);
+      opacity: 0;
+      transform: translateX(-6px);
+      transition: opacity var(--ease), transform var(--ease);
+    }
+    .cat-tile:hover .cat-arrow { opacity: 1; transform: translateX(0); }
+
+    /* PRODUCTS */
+    .products { background: var(--black); }
+
+    .prod-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .prod-card {
+      background: var(--black-2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform var(--transition), border-color var(--ease);
+    }
+    .prod-card:hover { transform: translateY(-6px) scale(1.01); border-color: rgba(232,25,10,0.5); }
+
+    .prod-img-wrap {
+      height: 200px;
+      background: var(--black-3);
+      display: flex; align-items: center; justify-content: center;
+      position: relative;
+      overflow: hidden;
+      transition: background var(--ease);
+    }
+    .prod-card:hover .prod-img-wrap { background: var(--black-4); }
+
+    .prod-img-wrap i {
+      font-size: 56px;
+      color: rgba(255,255,255,0.12);
+      transition: transform var(--transition), color var(--ease);
+    }
+    .prod-card:hover .prod-img-wrap i {
+      transform: scale(1.1) rotate(4deg);
+      color: rgba(232,25,10,0.4);
+    }
+
+    /* Product Photo Fixes */
+    .prod-photo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform var(--transition);
+    }
+    .prod-card:hover .prod-photo {
+      transform: scale(1.05);
+    }
+
+    .prod-badge {
+      position: absolute;
+      top: 14px; left: 14px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 4px;
+      z-index: 2; /* Ensures badge stays above images */
+    }
+    .badge-bestseller { background: var(--red); color: var(--white); }
+    .badge-new { background: var(--white); color: var(--black); }
+
+    .prod-wishlist {
+      position: absolute;
+      top: 12px; right: 12px;
+      width: 34px; height: 34px;
+      background: var(--black-4);
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px;
+      color: var(--white-60);
+      opacity: 0;
+      transform: scale(0.8);
+      transition: opacity var(--ease), transform var(--transition), color var(--ease), background var(--ease);
+      z-index: 2; /* Ensures wishlist button stays above images */
+    }
+    .prod-card:hover .prod-wishlist { opacity: 1; transform: scale(1); }
+    .prod-wishlist:hover { color: var(--red); }
+
+    .prod-info { padding: 18px 20px 20px; }
+    .prod-category {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 6px;
+    }
+    .prod-name { font-size: 15px; font-weight: 600; margin-bottom: 4px; line-height: 1.3; }
+    .prod-price { font-family: var(--font-display); font-size: 22px; font-weight: 700; margin-bottom: 16px; }
+    .prod-price .original {
+      font-size: 14px;
+      color: var(--white-60);
+      text-decoration: line-through;
+      margin-left: 6px;
+      font-weight: 400;
+    }
+
+    .btn-add {
+      width: 100%;
+      background: var(--black-4);
+      color: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 10px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: background var(--ease), border-color var(--ease), transform var(--transition);
+      display: flex; align-items: center; justify-content: center; gap: 6px;
+    }
+    .btn-add:hover { background: var(--red); border-color: var(--red); }
+    .btn-add:active { transform: scale(0.97); }
+
+    /* TRUST STRIP */
+    .trust {
+      background: var(--black-2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 0 48px;
+    }
+    .trust-inner {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+    }
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 28px 0;
+    }
+    .trust-item:not(:last-child) {
+      border-right: 1px solid var(--border);
+      margin-right: 32px;
+      padding-right: 32px;
+    }
+    .trust-icon {
+      width: 44px; height: 44px;
+      background: var(--red-glow);
+      border: 1px solid rgba(232,25,10,0.3);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .trust-icon i { font-size: 22px; color: var(--red); }
+    .trust-title { font-size: 14px; font-weight: 600; margin-bottom: 2px; }
+    .trust-sub { font-size: 12px; color: var(--white-60); }
+
+    /* REVIEWS */
+    .reviews { background: var(--black); }
+    .reviews-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+
+    .review-card {
+      background: var(--black-2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      transition: border-color var(--ease), transform var(--transition);
+    }
+    .review-card:hover { border-color: rgba(232,25,10,0.4); transform: translateY(-4px); }
+
+    .review-stars { display: flex; gap: 3px; margin-bottom: 14px; }
+    .review-stars i { font-size: 14px; color: var(--red); }
+    .review-text {
+      font-size: 14px;
+      color: var(--white-60);
+      line-height: 1.7;
+      margin-bottom: 18px;
+      font-style: italic;
+    }
+    .review-author { display: flex; align-items: center; gap: 10px; }
+    .review-avatar {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: var(--black-4);
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 700;
+      color: var(--red);
+    }
+    .review-name { font-size: 13px; font-weight: 600; }
+    .review-location { font-size: 11px; color: var(--white-60); }
+
+    /* NEWSLETTER */
+    .newsletter { background: var(--black-2); border-top: 1px solid var(--border); }
+    .newsletter-inner { max-width: 560px; margin: 0 auto; text-align: center; }
+    .newsletter-inner .section-title { margin-bottom: 12px; }
+    .newsletter-inner p { color: var(--white-60); font-size: 15px; margin-bottom: 32px; }
+    .nl-form { display: flex; gap: 10px; }
+    .nl-input {
+      flex: 1;
+      background: var(--black-3);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 13px 16px;
+      font-size: 14px;
+      color: var(--white);
+      font-family: var(--font-body);
+      outline: none;
+      transition: border-color var(--ease);
+    }
+    .nl-input::placeholder { color: var(--white-60); }
+    .nl-input:focus { border-color: var(--red); }
+
+    /* FOOTER */
+    footer {
+      background: var(--black);
+      border-top: 1px solid var(--border);
+      padding: 48px 48px 32px;
+    }
+    .footer-top {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr 1fr;
+      gap: 48px;
+      margin-bottom: 48px;
+    }
+    .footer-brand .nav-logo { margin-bottom: 12px; display: block; }
+    .footer-brand p { font-size: 13px; color: var(--white-60); line-height: 1.7; max-width: 240px; }
+    .footer-socials { display: flex; gap: 10px; margin-top: 20px; }
+    .social-btn {
+      width: 36px; height: 36px;
+      background: var(--black-3);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 17px;
+      color: var(--white-60);
+      transition: color var(--ease), background var(--ease), border-color var(--ease);
+    }
+    .social-btn:hover { color: var(--white); background: var(--red); border-color: var(--red); }
+
+    .footer-col h4 {
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--white-60); margin-bottom: 16px;
+    }
+    .footer-col ul { display: flex; flex-direction: column; gap: 10px; }
+    .footer-col ul a { font-size: 13px; color: var(--white-60); transition: color var(--ease); }
+    .footer-col ul a:hover { color: var(--white); }
+
+    .footer-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 28px;
+      border-top: 1px solid var(--border);
+      font-size: 12px;
+      color: var(--white-60);
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .hero-content > * { opacity: 0; animation: fadeUp 0.6s ease forwards; }
+    .hero-eyebrow { animation-delay: 0.1s; }
+    .hero h1      { animation-delay: 0.22s; }
+    .hero-sub     { animation-delay: 0.34s; }
+    .hero-btns    { animation-delay: 0.44s; }
+    .hero-stats   { animation-delay: 0.54s; }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      nav { padding: 0 20px; }
+      .nav-links { display: none; }
+      section { padding: 60px 20px; }
+      .hero { padding: 60px 20px; min-height: auto; }
+      .cat-grid { grid-template-columns: repeat(2, 1fr); }
+      .prod-grid { grid-template-columns: repeat(2, 1fr); }
+      .trust-inner { grid-template-columns: 1fr; }
+      .trust-item:not(:last-child) { border-right: none; border-bottom: 1px solid var(--border); padding-right: 0; margin-right: 0; padding-bottom: 24px; margin-bottom: 24px; }
+      .reviews-grid { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr 1fr; gap: 32px; }
+      .trust { padding: 0 20px; }
+      footer { padding: 40px 20px 24px; }
+      .hero-stats { gap: 28px; }
+      .nl-form { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="announce-bar">
+    Free delivery on orders over Rs. 2,000 &nbsp;|&nbsp; 30-day returns &nbsp;|&nbsp; Nationwide shipping
+  </div>
+
+  <nav>
+    <a href="index.html" class="nav-logo">AUTO<span>GEAR</span> PK</a>
+    <ul class="nav-links">
+      <li><a href="shop.html">Shop</a></li>
+      <li><a href="shop.html">Categories</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="about.html">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a href="#" aria-label="Search"><i class="ti ti-search"></i></a>
+      <a href="#" aria-label="Wishlist"><i class="ti ti-heart"></i></a>
+      <a href="cart.html" class="nav-cart" aria-label="Cart">
+        <i class="ti ti-shopping-cart"></i>
+        <span class="cart-badge">0</span>
+      </a>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-bg-grid"></div>
+    <div class="hero-bg-accent"></div>
+    <div class="hero-content">
+      <div class="hero-eyebrow">New arrivals 2026</div>
+      <h1>Drive with <em>purpose.</em></h1>
+      <p class="hero-sub">Premium car accessories built for Pakistani roads. Upgrade your interior, exterior, and tech — delivered to your doorstep.</p>
+      <div class="hero-btns">
+        <a href="shop.html" class="btn-primary">Shop now <i class="ti ti-arrow-right"></i></a>
+        <a href="shop.html" class="btn-ghost">View categories</a>
+      </div>
+      <div class="hero-stats">
+        <div>
+          <div class="stat-num">500<span>+</span></div>
+          <div class="stat-label">Products</div>
+        </div>
+        
+        <div>
+          <div class="stat-num">30<span>d</span></div>
+          <div class="stat-label">Free returns</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="categories">
+    <div class="section-header">
+      <div class="section-eyebrow">Browse</div>
+      <h2 class="section-title">Shop by category</h2>
+    </div>
+    <div class="cat-grid">
+      <div class="cat-tile" onclick="location.href='shop.html'">
+        <div class="cat-icon-wrap"><i class="ti ti-armchair"></i></div>
+        <div class="cat-name">Interior</div>
+        <div class="cat-count">48 products</div>
+        <span class="cat-arrow"><i class="ti ti-arrow-right"></i></span>
+      </div>
+      <div class="cat-tile" onclick="location.href='shop.html'">
+        <div class="cat-icon-wrap"><i class="ti ti-car"></i></div>
+        <div class="cat-name">Exterior</div>
+        <div class="cat-count">36 products</div>
+        <span class="cat-arrow"><i class="ti ti-arrow-right"></i></span>
+      </div>
+      <div class="cat-tile" onclick="location.href='shop.html'">
+        <div class="cat-icon-wrap"><i class="ti ti-device-mobile"></i></div>
+        <div class="cat-name">Tech & Gadgets</div>
+        <div class="cat-count">24 products</div>
+        <span class="cat-arrow"><i class="ti ti-arrow-right"></i></span>
+      </div>
+      <div class="cat-tile" onclick="location.href='shop.html'">
+        <div class="cat-icon-wrap"><i class="ti ti-droplet"></i></div>
+        <div class="cat-name">Car Care</div>
+        <div class="cat-count">19 products</div>
+        <span class="cat-arrow"><i class="ti ti-arrow-right"></i></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="products">
+    <div class="section-header">
+      <div class="section-eyebrow">Handpicked</div>
+      <h2 class="section-title">Featured products</h2>
+    </div>
+    <div class="prod-grid">
+      
+      <div class="prod-card">
+        <div class="prod-img-wrap">
+          <span class="prod-badge badge-bestseller">Bestseller</span>
+          <button class="prod-wishlist" aria-label="Add to wishlist"><i class="ti ti-heart"></i></button>
+          <img src="images/carseats.jpg" alt="Premium leather seat covers" class="prod-photo">
+        </div>
+        <div class="prod-info">
+          <div class="prod-category">Interior</div>
+          <div class="prod-name">Premium leather seat covers</div>
+          <div class="prod-price">Rs. 3,500 <span class="original">Rs. 4,200</span></div>
+          <button class="btn-add"><i class="ti ti-shopping-cart"></i> Add to cart</button>
+        </div>
+      </div>
+
+      <div class="prod-card">
+        <div class="prod-img-wrap">
+          <span class="prod-badge badge-new">New</span>
+          <button class="prod-wishlist" aria-label="Add to wishlist"><i class="ti ti-heart"></i></button>
+          <img src="images/phonemount.jpg" alt="15W wireless phone mount" class="prod-photo">
+        </div>
+        <div class="prod-info">
+          <div class="prod-category">Tech & Gadgets</div>
+          <div class="prod-name">15W wireless phone mount</div>
+          <div class="prod-price">Rs. 1,800</div>
+          <button class="btn-add"><i class="ti ti-shopping-cart"></i> Add to cart</button>
+        </div>
+      </div>
+
+      <div class="prod-card">
+        <div class="prod-img-wrap">
+          <button class="prod-wishlist" aria-label="Add to wishlist"><i class="ti ti-heart"></i></button>
+          <i class="ti ti-droplet"></i>
+        </div>
+        <div class="prod-info">
+          <div class="prod-category">Car Care</div>
+          <div class="prod-name">Foam wash kit — 3 piece</div>
+          <div class="prod-price">Rs. 2,200</div>
+          <button class="btn-add"><i class="ti ti-shopping-cart"></i> Add to cart</button>
+        </div>
+      </div>
+
+      <div class="prod-card">
+        <div class="prod-img-wrap">
+          <span class="prod-badge badge-bestseller">Bestseller</span>
+          <button class="prod-wishlist" aria-label="Add to wishlist"><i class="ti ti-heart"></i></button>
+          <i class="ti ti-map"></i>
+        </div>
+        <div class="prod-info">
+          <div class="prod-category">Interior</div>
+          <div class="prod-name">TPE floor mats — custom fit</div>
+          <div class="prod-price">Rs. 4,800</div>
+          <button class="btn-add"><i class="ti ti-shopping-cart"></i> Add to cart</button>
+        </div>
+      </div>
+
+      <div class="prod-card">
+        <div class="prod-img-wrap">
+          <span class="prod-badge badge-new">New</span>
+          <button class="prod-wishlist" aria-label="Add to wishlist"><i class="ti ti-heart"></i></button>
+          <i class="ti ti-car"></i>
+        </div>
+        <div class="prod-info">
+          <div class="prod-category">Exterior</div>
+          <div class="prod-name">Carbon fibre door guards</div>
+          <div class="prod-price">Rs. 1,200</div>
+          <button class="btn-add"><i class="ti ti-shopping-cart"></i> Add to cart</button>
+        </div>
+      </div>
+
+      <div class="prod-card">
+        <div class="prod-img-wrap">
+          <button class="prod-wishlist" aria-label="Add to wishlist"><i class="ti ti-heart"></i></button>
+          <i class="ti ti-camera"></i>
+        </div>
+        <div class="prod-info">
+          <div class="prod-category">Tech & Gadgets</div>
+          <div class="prod-name">Dash cam — full HD 1080p</div>
+          <div class="prod-price">Rs. 5,500 <span class="original">Rs. 6,800</span></div>
+          <button class="btn-add"><i class="ti ti-shopping-cart"></i> Add to cart</button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="trust">
+    <div class="trust-inner">
+      <div class="trust-item">
+        <div class="trust-icon"><i class="ti ti-truck-delivery"></i></div>
+        <div>
+          <div class="trust-title">Free delivery</div>
+          <div class="trust-sub">On orders above Rs. 2,000</div>
+        </div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon"><i class="ti ti-refresh"></i></div>
+        <div>
+          <div class="trust-title">30-day returns</div>
+          <div class="trust-sub">Hassle-free return policy</div>
+        </div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon"><i class="ti ti-shield-check"></i></div>
+        <div>
+          <div class="trust-title">Genuine products</div>
+          <div class="trust-sub">Quality guaranteed</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="newsletter">
+    <div class="newsletter-inner">
+      <div class="section-eyebrow">Stay in the loop</div>
+      <h2 class="section-title">Deals & new arrivals</h2>
+      <p>Join the AutoGear community. Get early access to sales and new drops.</p>
+      <div class="nl-form">
+        <input class="nl-input" type="email" placeholder="your@email.com">
+        <button class="btn-primary">Subscribe <i class="ti ti-arrow-right"></i></button>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-top">
+      <div class="footer-brand">
+        <span class="nav-logo">AUTO<span>GEAR</span> PK</span>
+        <p>Pakistan's go-to store for premium car accessories. Quality products, fast delivery, real support.</p>
+        <div class="footer-socials">
+          <a href="#" class="social-btn" aria-label="Instagram"><i class="ti ti-brand-instagram"></i></a>
+          <a href="#" class="social-btn" aria-label="WhatsApp"><i class="ti ti-brand-whatsapp"></i></a>
+          <a href="#" class="social-btn" aria-label="Facebook"><i class="ti ti-brand-facebook"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Shop</h4>
+        <ul>
+          <li><a href="shop.html">Interior</a></li>
+          <li><a href="shop.html">Exterior</a></li>
+          <li><a href="shop.html">Tech & Gadgets</a></li>
+          <li><a href="shop.html">Car Care</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Help</h4>
+        <ul>
+          <li><a href="#">Shipping info</a></li>
+          <li><a href="#">Returns</a></li>
+          <li><a href="#">Track order</a></li>
+          <li><a href="about.html">Contact us</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="https://wa.me/923001234567"><i class="ti ti-brand-whatsapp"></i> WhatsApp us</a></li>
+          <li><a href="mailto:hello@autogear.pk">hello@autogear.pk</a></li>
+          
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 AutoGear PK. All rights reserved.</span>
+      <span>Made in Pakistan 🇵🇰</span>
+    </div>
+  </footer>
+
+  <script>
+    const cartCount = { value: 0 };
+    const badge = document.querySelector('.cart-badge');
+
+    document.querySelectorAll('.btn-add').forEach(btn => {
+      btn.addEventListener('click', () => {
+        cartCount.value++;
+        badge.textContent = cartCount.value;
+        btn.innerHTML = '<i class="ti ti-check"></i> Added!';
+        btn.style.background = '#1a6b2e';
+        btn.style.borderColor = '#1a6b2e';
+        setTimeout(() => {
+          btn.innerHTML = '<i class="ti ti-shopping-cart"></i> Add to cart';
+          btn.style.background = '';
+          btn.style.borderColor = '';
+        }, 1800);
+      });
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.cat-tile, .prod-card, .review-card, .trust-item').forEach((el, i) => {
+      el.classList.add('reveal-item');
+      el.style.transition = `opacity 0.5s ease ${i * 0.07}s, transform 0.5s ease ${i * 0.07}s, border-color 0.18s ease, background 0.18s ease`;
+      observer.observe(el);
+    });
+  </script>
+
+</body>
+</html>
